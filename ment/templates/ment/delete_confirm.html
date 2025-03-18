@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Warning - Inactivate Department</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 40px;
+        }
+        .warning-card {
+            width: 500px;
+            margin: auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h2 {
+            color: #d9534f;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #333;
+            margin: 15px 0;
+            line-height: 1.5;
+        }
+        strong {
+            color: #000;
+        }
+        button {
+            padding: 12px 25px;
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 15px 5px;
+        }
+        button:hover {
+            background-color: #c9302c;
+        }
+        .cancel-link {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #6c757d;
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+        .cancel-link:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="warning-card">
+        <h2>⚠️ Warning!</h2>
+        <p>You are about to <strong>inactivate</strong> the department: <strong>{{ department.dept_name }}</strong>.</p>
+        <p>This will also affect all employees linked with this department. Please reassign employees before proceeding.</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" onclick="return confirm('Are you sure you want to inactivate this department?')">Inactivate Department</button>
+        </form>
+
+        <a class="cancel-link" href="{% url 'department_dashboard' %}">Cancel</a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Department Dashboard</title>
+    <style>
+        body {
+            background-color: #f0f2f5;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 20px;
+        }
+        h2, h3 {
+            text-align: center;
+            color: #333;
+        }
+        .search-form, .add-form {
+            text-align: center;
+            margin: 20px 0;
+        }
+        input[type="text"], textarea {
+            padding: 10px;
+            margin: 10px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 90%;
+            margin: auto;
+            border-collapse: collapse;
+            margin-top: 30px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .btn-edit {
+            background-color: #FFC107;
+            color: #000;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .btn-edit:hover {
+            background-color: #e0a800;
+        }
+        .btn-delete {
+            background-color: #DC3545;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .btn-delete:hover {
+            background-color: #c82333;
+        }
+        .no-data {
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Department Dashboard</h2>
+
+    <!-- Search Form -->
+    <div class="search-form">
+        <form method="GET">
+            <input type="text" name="q" placeholder="Search department..." value="{{ query }}">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- Add Form -->
+    <div class="add-form">
+        <h3>Create Department</h3>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Create </button>
+        </form>
+    </div>
+
+    <!-- Active Departments -->
+    <h3>Active Departments</h3>
+    <table>
+        <tr>
+            <th>Sr.No</th>
+            <th>Department Name</th>
+            <th>Description</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        {% for dept in departments %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ dept.dept_name }}</td>
+            <td>{{ dept.description }}</td>
+            <td>
+                <a href="{% url 'edit_department' dept.pk %}" class="btn-edit">Edit</a>
+            </td>
+            <td>
+                <a href="{% url 'delete_department' dept.pk %}" class="btn-delete">Delete</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" class="no-data">No departments found.</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>
