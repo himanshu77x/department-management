@@ -84,6 +84,8 @@ DATABASES = {
     }
 }
 
+ALLOWED_HOSTS = ['*']  # Or better, use Render-provided domain
+DEBUG = False
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
